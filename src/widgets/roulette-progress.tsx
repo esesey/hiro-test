@@ -5,7 +5,9 @@ interface RouletteProgressProps {
 }
 
 export const RouletteProgress = ({ currentDay }: RouletteProgressProps) => {
-  const progressWidth = `${((currentDay % 7) / 7) * 100}%`;
+  const dayIndex = currentDay % 7;
+  const progressWidth =
+    dayIndex === 0 && currentDay !== 0 ? "100%" : `${(dayIndex / 7) * 100}%`;
   return (
     <div className="isolate relative w-full h-15 grid grid-cols-7 py-2 px-4 rounded-lg border-gray-stroke border">
       {Array.from({ length: 7 }).map((_day, index) => (
