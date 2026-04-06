@@ -11,7 +11,7 @@ export const Button = (props: ButtonProps) => {
   const { className, children, variant, size, endAdorement, ...rest } = props;
 
   const buttonVariantClassName = cva(
-    "cursor-pointer outline-none focus:outline-none flex items-center justify-center rounded-[2.5rem] text-center gap-4",
+    "cursor-pointer outline-none focus:outline-none flex items-center justify-center rounded-[2.5rem] text-center gap-4 max-h-12",
     {
       variants: {
         variant: {
@@ -21,8 +21,8 @@ export const Button = (props: ButtonProps) => {
           ghost: "bg-transparent text-contrast",
         },
         size: {
-          sm: "px-4 py-2 text-[1.5rem] leading-none uppercase font-alumni-sans font-[600] tracking-[0.01em]",
-          lg: "px-4 py-3.5 text-[1.25rem] leading-none font-kelly-slab tracking-none",
+          sm: "px-4 py-2 text-[1.5rem] leading-6 uppercase font-alumni-sans font-[600] tracking-[0.01em]",
+          lg: "px-4 py-3.5 text-[1.25rem] leading-5 font-kelly-slab tracking-none",
         },
       },
       defaultVariants: {

@@ -4,7 +4,7 @@ import ArrowDown from "../assets/icons/arrow-down.svg?react";
 
 export const Header = () => {
   return (
-    <header className="fix-container">
+    <header className="fix-container px-2">
       <div className="grid grid-cols-26 gap-4 py-4">
         <nav className="flex gap-4 col-span-11">
           <a href="#">
