@@ -1,6 +1,12 @@
 import { Button } from "../shared/ui/button";
 import Logo from "../assets/logos/logo.svg?react";
 import ArrowDown from "../assets/icons/arrow-down.svg?react";
+import { cn } from "../shared/utils/classnames";
+import { NavLink } from "../shared/ui/nav-link";
+
+// NOTE: Хардовая реализация проверки текущей страницы
+const CURRENT_PAGE = "/account";
+const isCurrent = (path: string) => path === CURRENT_PAGE;
 
 export const Header = () => {
   return (
@@ -10,32 +16,23 @@ export const Header = () => {
           <a href="#">
             <Logo />
           </a>
-          <a
-            href="#"
-            className="block w-full text-center py-3.5 font-kelly-slab"
-          >
+          <NavLink href="#" selected={isCurrent("/faq")}>
             FAQ
-          </a>
-          <a
-            href="#"
-            className="block w-full text-center py-3.5 font-kelly-slab"
-          >
+          </NavLink>
+          <NavLink href="#" selected={isCurrent("/tariffs")}>
             Тарифы
-          </a>
+          </NavLink>
         </nav>
         <Button className="col-span-4" size="lg">
           Скачать
         </Button>
         <nav className="col-span-11 flex gap-4">
-          <a
-            href="#"
-            className="block w-full text-center py-3.5 font-kelly-slab"
-          >
+          <NavLink href="#" selected={isCurrent("/blog")}>
             Блог
-          </a>
-          <Button className="w-full" size="lg" variant="outline">
+          </NavLink>
+          <NavLink href="#" selected={isCurrent("/account")}>
             Аккаунт
-          </Button>
+          </NavLink>
           <Button size="lg" variant="ghost" endAdorement={<ArrowDown />}>
             Ру
           </Button>
