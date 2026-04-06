@@ -2,6 +2,8 @@ import { IconButton } from "./shared/ui/icon-button";
 import { Footer } from "./widgets/footer";
 import { Header } from "./widgets/header";
 import CrossIcon from "./assets/icons/close.svg?react";
+import { QuestsGrid } from "./widgets/quests-grid";
+import { QUESTS_MOCKUP } from "./shared/constants/quests-mockup";
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
             <CrossIcon />
           </IconButton>
         </div>
+        <QuestsGrid quests={QUESTS_MOCKUP} />
       </main>
       <Footer />
     </div>

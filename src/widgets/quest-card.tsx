@@ -16,14 +16,20 @@ export const QuestCard = ({ quest, special = false }: QuestCardProps) => {
         "flex flex-col justify-between gap-4 pb-6 px-6 ",
         special
           ? "bg-contrast text-fill"
-          : "border border-gray-stroke rounded-lg",
+          : "border border-gray-stroke rounded-lg w-full h-full",
       )}
     >
       <div className="flex flex-col gap-1">
-        {availability === "available" && <div>Доступен</div>}
+        {availability === "available" && (
+          <div className="bg-accent py-0.5 px-2 w-fit">Доступен</div>
+        )}
         <div className="flex flex-col gap-2">
-          <div>{title}</div>
-          <div>{description}</div>
+          <div className="uppercase text-[2rem] leading-8 tracking-[0.01em] font-semibold">
+            {title}
+          </div>
+          <div className="text-gray text-[1.25rem] leading-5 tracking-[0.01em]">
+            {description}
+          </div>
         </div>
       </div>
       <Button
