@@ -3,6 +3,12 @@
 :root {
   --kelly-slab: "Kelly Slab", sans-serif;
   --alumni-sans: "Alumni Sans", sans-serif;
+
+  --fill: #1e2025;
+  --contrast: #fdfdfd;
+  --accent: #ff0633;
+  --gray: #c3c2bd;
+
   letter-spacing: 0.18px;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -17,6 +23,11 @@
 @theme {
   --font-kelly-slab: var(--kelly-slab);
   --font-alumni-sans: var(--alumni-sans);
+
+  --color-fill: var(--fill);
+  --color-contrast: var(--contrast);
+  --color-accent: var(--accent);
+  --color-gray: var(--gray);
 }
 
 #root {
