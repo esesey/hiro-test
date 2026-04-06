@@ -11,11 +11,11 @@ export const Button = (props: ButtonProps) => {
   const { className, children, variant, size, endAdorement, ...rest } = props;
 
   const buttonVariantClassName = cva(
-    "cursor-pointer outline-none focus:outline-none flex items-center justify-center rounded-[2.5rem] text-center gap-4 max-h-12",
+    "cursor-pointer outline-none focus:outline-none flex items-center justify-center rounded-[2.5rem] text-center gap-4 max-h-12 hover:shadow-button-hover transition-all easy-in-out duration-300 active:scale-[98%]",
     {
       variants: {
         variant: {
-          primary: "bg-accent text-contrast",
+          primary: "bg-accent text-contrast shadow-button",
           secondary: "bg-contrast text-fill",
           outline: "bg-transparent border border-contrast text-contrast",
           ghost: "bg-transparent text-contrast",

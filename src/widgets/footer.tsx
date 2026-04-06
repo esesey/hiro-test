@@ -11,7 +11,7 @@ export const Footer = () => {
           <Logo className="text-gray max-h-6 -ml-7.25" />
           {FOOTER_LINKS.navigation.map(({ title, href }, index) => (
             <a
-              className="block row-span-1 text-[1.25rem] leading-5 py-3"
+              className="block row-span-1 text-[1.25rem] leading-5 py-3 hover:text-accent transition-colors ease-in-out duration-300"
               href={href}
               key={`navigation-${index}`}
             >
@@ -25,7 +25,7 @@ export const Footer = () => {
           </h3>
           {FOOTER_LINKS.download.map(({ title, href, icon }, index) => (
             <a
-              className="flex gap-4 row-span-1 text-[1.25rem] leading-5 py-3"
+              className="flex gap-4 row-span-1 text-[1.25rem] leading-5 py-3  hover:text-accent transition-colors ease-in-out duration-300"
               href={href}
               key={`download-${index}`}
             >
@@ -40,7 +40,7 @@ export const Footer = () => {
           </h3>
           {FOOTER_LINKS.payment.map(({ title, href, icon }, index) => (
             <a
-              className="flex gap-4 row-span-1 text-[1.25rem] leading-5 py-3"
+              className="flex gap-4 row-span-1 text-[1.25rem] leading-5 py-3  hover:text-accent transition-colors ease-in-out duration-300"
               href={href}
               key={`payment-${index}`}
             >
@@ -63,13 +63,13 @@ export const Footer = () => {
           </Button>
           <div className="flex flex-col">
             <a
-              className="block py-2.5 text-[1.25rem] leading-5 tracking-[0.01em]"
+              className="block py-2.5 text-[1.25rem] leading-5 tracking-[0.01em]  hover:text-accent transition-colors ease-in-out duration-300"
               href={FOOTER_LINKS.offer}
             >
               Публичная оферта
             </a>
             <a
-              className="block py-2.5 text-[1.25rem] leading-5 tracking-[0.01em]"
+              className="block py-2.5 text-[1.25rem] leading-5 tracking-[0.01em  hover:text-accent transition-colors ease-in-out duration-300"
               href={FOOTER_LINKS.accommodation}
             >
               Пользовательское соглашение

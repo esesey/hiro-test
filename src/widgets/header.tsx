@@ -1,7 +1,6 @@
 import { Button } from "../shared/ui/button";
 import Logo from "../assets/logos/logo.svg?react";
 import ArrowDown from "../assets/icons/arrow-down.svg?react";
-import { cn } from "../shared/utils/classnames";
 import { NavLink } from "../shared/ui/nav-link";
 
 // NOTE: Хардовая реализация проверки текущей страницы

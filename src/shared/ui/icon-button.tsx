@@ -5,7 +5,7 @@ export const IconButton = (props: React.ComponentProps<"button">) => {
   return (
     <button
       className={cn(
-        "cursor-pointer outline-none focus:outline-none flex items-center justify-center rounded-full bg-transparent w-fit h-fit",
+        "cursor-pointer outline-none focus:outline-none flex items-center justify-center rounded-full bg-transparent w-fit h-fit hover:shadow-hover transition-all easy-in-out",
         className,
       )}
       {...rest}

@@ -34,6 +34,12 @@
   --color-accent: var(--accent);
   --color-gray: var(--gray);
   --color-gray-stroke: var(--gray-stroke);
+
+  --shadow-button:
+    0 4px 4px 0 rgb(0 0 0 / 0.3), 0 8px 12px 6px rgb(0 0 0 / 0.15);
+  --shadow-button-hover:
+    0 8px 8px 0 rgb(0 0 0 / 0.3), 0 16px 24px 12px rgb(0 0 0 / 0.15);
+  --shadow-hover: 0 8px 12px 6px rgb(0 0 0 / 0.15);
 }
 
 #root {
