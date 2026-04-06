@@ -1,9 +1,12 @@
+import { Footer } from "./widgets/footer";
+import { Header } from "./widgets/header";
+
 function App() {
   return (
-    <>
-      <p className="font-kelly-slab">Рыпапап</p>
-      <p className="font-alumni-sans">Рыпапап</p>
-    </>
+    <div className="h-full w-full max-w-screen relative min-h-screen flex flex-col">
+      <Header />
+      <Footer />
+    </div>
   );
 }
 
