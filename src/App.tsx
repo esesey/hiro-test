@@ -4,6 +4,8 @@ import { Header } from "./widgets/header";
 import CrossIcon from "./assets/icons/close.svg?react";
 import { QuestsGrid } from "./widgets/quests-grid";
 import { QUESTS_MOCKUP } from "./shared/constants/quests-mockup";
+import { Roulette } from "./widgets/roulette";
+import { generatePrizeList } from "./shared/utils/generate-prize-list";
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
             <CrossIcon />
           </IconButton>
         </div>
+        <Roulette day={6} prizes={generatePrizeList()} />
         <QuestsGrid quests={QUESTS_MOCKUP} />
       </main>
       <Footer />
