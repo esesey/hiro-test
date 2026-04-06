@@ -8,6 +8,7 @@
   --contrast: #fdfdfd;
   --accent: #ff0633;
   --gray: #c3c2bd;
+  --gray-stroke: #2e3139;
 
   letter-spacing: 0.18px;
   font-synthesis: none;
@@ -32,6 +33,7 @@
   --color-contrast: var(--contrast);
   --color-accent: var(--accent);
   --color-gray: var(--gray);
+  --color-gray-stroke: var(--gray-stroke);
 }
 
 #root {

@@ -5,7 +5,7 @@ import { Button } from "../shared/ui/button";
 
 export const Footer = () => {
   return (
-    <footer className="flex flex-col fix-container pt-10! pb-6! border-t-2 border-x-2 border-[#2E3139] rounded-t-lg">
+    <footer className="flex flex-col fix-container pt-10! pb-6! border-t-2 border-x-2 border-gray-stroke rounded-t-lg">
       <nav className="grid grid-cols-4 grid-rows-7 gap-x-12 px-6 pb-6">
         <div className="grid grid-rows-subgrid row-span-full">
           <Logo className="text-gray max-h-6 -ml-7.25" />
@@ -77,7 +77,7 @@ export const Footer = () => {
           </div>
         </div>
       </nav>
-      <div className="text-[1.25rem] leading-5 tracking-[0.01em] text-center text-gray pt-4 border-t border-[#2E3139]">
+      <div className="text-[1.25rem] leading-5 tracking-[0.01em] text-center text-gray pt-4 border-t border-gray-stroke">
         &copy;&nbsp;2025 Wolle Development Limited. Все права защищены.
       </div>
     </footer>
