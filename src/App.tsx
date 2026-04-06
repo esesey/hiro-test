@@ -1,11 +1,6 @@
-import { IconButton } from "./shared/ui/icon-button";
 import { Footer } from "./widgets/footer";
 import { Header } from "./widgets/header";
-import CrossIcon from "./assets/icons/close.svg?react";
-import { QuestsGrid } from "./widgets/quests-grid";
-import { QUESTS_MOCKUP } from "./shared/constants/quests-mockup";
-import { Roulette } from "./widgets/roulette";
-import { generatePrizeList } from "./shared/utils/generate-prize-list";
+import { QuestsSection } from "./widgets/quests-section";
 
 function App() {
   return (
@@ -15,16 +10,7 @@ function App() {
         <h1 className="text-center uppercase text-[4rem] font-kelly-slab mt-10 mb-8">
           Аккаунт
         </h1>
-        <div className="flex w-full justify-between items-center mb-8">
-          <div className="font-kelly-slab text-[2.75rem] leading-11">
-            Квесты
-          </div>
-          <IconButton>
-            <CrossIcon />
-          </IconButton>
-        </div>
-        <Roulette day={6} prizes={generatePrizeList()} />
-        <QuestsGrid quests={QUESTS_MOCKUP} />
+        <QuestsSection />
       </main>
       <Footer />
     </div>

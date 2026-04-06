@@ -21,13 +21,20 @@ export const QuestCard = ({ quest, special = false }: QuestCardProps) => {
     >
       <div className="flex flex-col gap-1">
         {availability === "available" && (
-          <div className="bg-accent py-0.5 px-2 w-fit">Доступен</div>
+          <div className="bg-accent text-contrast py-0.5 px-2 w-fit text-[1.25rem] leading-5 tracking-[0.01em]">
+            Доступен
+          </div>
         )}
         <div className="flex flex-col gap-2">
           <div className="uppercase text-[2rem] leading-8 tracking-[0.01em] font-semibold">
             {title}
           </div>
-          <div className="text-gray text-[1.25rem] leading-5 tracking-[0.01em]">
+          <div
+            className={cn(
+              "text-[1.25rem] leading-5 tracking-[0.01em]",
+              special ? "text-fill" : "text-gray",
+            )}
+          >
             {description}
           </div>
         </div>
