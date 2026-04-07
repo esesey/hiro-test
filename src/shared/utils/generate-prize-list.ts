@@ -79,7 +79,7 @@ const selectPrizeType = (weights: PrizeWeights): Prize["type"] => {
 };
 
 export const generatePrizeList = (
-  prizesCount: number = 10,
+  prizesCount: number = 30,
   config?: GeneratePrizeListConfig,
 ): Prize[] => {
   const weights: PrizeWeights = {

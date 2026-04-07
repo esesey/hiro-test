@@ -9,6 +9,7 @@ import type {
 import LoseIcon from "../../assets/prizes/lose.svg?react";
 import PrizeIcon from "../../assets/prizes/prize.svg?react";
 import SuperPrizeIcon from "../../assets/prizes/super-prize.svg?react";
+import { pluralize } from "./pluralize";
 
 export function generatePrize(prizeType: "lose"): LosePrize;
 export function generatePrize(
@@ -43,14 +44,20 @@ export function generatePrize(prizeType: PrizeType, value?: number): Prize {
       type: prizeType,
       count: value!,
       icon: <SuperPrizeIcon />,
-      message: ["бесплатные", `${value} дней`],
+      message: [
+        pluralize(value!, ["бесплатный", "бесплатные", "бесплатные"], true),
+        pluralize(value!, ["день", "дня", "дней"]),
+      ],
     };
   if (prizeType === "free_hours")
     return {
       type: prizeType,
       count: value!,
       icon: <SuperPrizeIcon />,
-      message: ["бесплатные", `${value} часов`],
+      message: [
+        pluralize(value!, ["бесплатный", "бесплатные", "бесплатные"], true),
+        pluralize(value!, ["час", "часа", "часов"]),
+      ],
     };
   throw new Error("Invalid prize type");
 }
