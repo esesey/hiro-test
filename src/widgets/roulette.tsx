@@ -30,9 +30,11 @@ export const Roulette = ({
     isOpenPopup,
     isAvailable,
     isSpinning,
+    prizeTaken,
     offset,
     closePopup,
     handleSpinClick,
+    takePrize,
     lastTime,
     prizeList,
   } = useRoulette(prizes, hasAttempt, lastAttempt, onWin);
@@ -75,13 +77,16 @@ export const Roulette = ({
         <Timer lastAttempt={lastTime} />
       )}
 
-      <Button
-        onClick={handleSpinClick}
-        endAdorement={<GiftIcon />}
-        disabled={isSpinning}
-      >
-        Испытать удачу
-      </Button>
+      {!prizeTaken || isAvailable ? (
+        <Button
+          variant={isAvailable ? "primary" : "secondary"}
+          onClick={isAvailable ? handleSpinClick : takePrize}
+          endAdorement={<GiftIcon />}
+          disabled={isSpinning}
+        >
+          {isAvailable ? "Испытать удачу" : "забрать награду"}
+        </Button>
+      ) : null}
       <div className="flex flex-col gap-2.5">
         <div className="text-[1.25rem] leading-5 tracking-[0.01em]">
           Крути колесо 7&nbsp;дней подряд без пропусков и&nbsp;получи

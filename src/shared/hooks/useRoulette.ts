@@ -20,6 +20,7 @@ export const useRoulette = (
   const [itemWidth, setItemWidth] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
+  const [prizeTaken, setPrizeTaken] = useState(false);
 
   const isAvailable = hasAttempt && isAttemptAvailable(lastTime);
 
@@ -29,6 +30,10 @@ export const useRoulette = (
 
   const closePopup = () => {
     setIsOpenPopup(false);
+  };
+
+  const takePrize = () => {
+    setPrizeTaken(true);
   };
 
   const handleWin = (prize: Prize) => {
@@ -101,9 +106,11 @@ export const useRoulette = (
     isOpenPopup,
     isAvailable,
     isSpinning,
+    prizeTaken,
     offset,
     closePopup,
     handleSpinClick,
+    takePrize,
     lastTime,
     prizeList: tripledPrizes,
   };
