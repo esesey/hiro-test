@@ -43,8 +43,8 @@ export const useInfiniteRoulette = ({
 
   const getCenterIndex = useCallback(
     (currentOffset: number) => {
-      const centerPosition = -currentOffset - containerWidth / 2;
-      let idx = Math.round(centerPosition / itemWidth);
+      const centerPosition = -currentOffset + containerWidth / 2;
+      let idx = Math.ceil(centerPosition / itemWidth);
       idx = ((idx % totalItems) + totalItems) % totalItems;
       return idx;
     },
