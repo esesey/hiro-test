@@ -10,6 +10,7 @@ import { subDays } from "date-fns";
 import { isAttemptAvailable } from "../shared/utils/time-utils";
 import { Timer } from "./timer";
 import { useInfiniteRoulette } from "../shared/hooks/useInfiniteRoulette";
+import FrameIcon from "../assets/frame.svg?react";
 
 interface RouletteProps {
   prizes: Prize[];
@@ -128,19 +129,22 @@ export const Roulette = ({
       </div>
 
       {isAvailable ? (
-        <div
-          ref={containerRef}
-          className="flex gap-1"
-          style={{
-            willChange: "transform",
-            transform: `translateX(${offset}px)`,
-          }}
-        >
-          {tripledPrizes.map((prize, index) => (
-            <div key={index} className="roulette-card shrink-0">
-              <RouletteCard prize={prize} />
-            </div>
-          ))}
+        <div className="w-full relative">
+          <div
+            ref={containerRef}
+            className="flex gap-1"
+            style={{
+              willChange: "transform",
+              transform: `translateX(${offset}px)`,
+            }}
+          >
+            {tripledPrizes.map((prize, index) => (
+              <div key={index} className="roulette-card shrink-0">
+                <RouletteCard prize={prize} />
+              </div>
+            ))}
+          </div>
+          <FrameIcon className="absolute z-1 bottom-0 left-1/2 -translate-x-1/2" />
         </div>
       ) : (
         <Timer lastAttempt={lastTime} />

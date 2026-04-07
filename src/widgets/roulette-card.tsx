@@ -7,7 +7,7 @@ interface RouletteCardProps {
 export const RouletteCard = ({ prize }: RouletteCardProps) => {
   const { message, icon } = prize;
   return (
-    <div className="flex flex-col items-center py-4 border border-gray rounded-lg">
+    <div className="flex flex-col items-center py-4 border border-gray rounded-lg max-h-52">
       <span className="text-gray text-[1.5rem] leading-6 tracking-[0.01em] font-semibold">
         {message[0]}
       </span>
