@@ -8,12 +8,12 @@ import { cva } from "class-variance-authority";
 import { createPortal } from "react-dom";
 import { cn } from "../utils/classnames";
 
-export interface BaseModalProps extends PropsWithChildren {
+export interface BaseModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-interface ModalProps extends BaseModalProps {
+interface ModalProps extends BaseModalProps, PropsWithChildren {
   appearance?: "left" | "right" | "top" | "bottom" | "center";
   className?: string;
   overlayClassName?: string;

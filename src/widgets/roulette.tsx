@@ -4,11 +4,15 @@ import RouletteIcon from "../assets/logos/roullete.svg?react";
 import GiftIcon from "../assets/icons/gift.svg?react";
 import { RouletteProgress } from "./roulette-progress";
 import { RouletteCard } from "./roulette-card";
+import { useState } from "react";
+import { PrizePopup } from "./prize-popup";
+import { subDays } from "date-fns";
+import { isAttemptAvailable } from "../shared/utils/time-utils";
+import { Timer } from "./timer";
 
 interface RouletteProps {
   prizes: Prize[];
   day: number;
-  // Будут использованы позже
   hasAttempt?: boolean;
   lastAttempt?: Date;
   onWin?: (prize: Prize) => void;
@@ -17,10 +21,32 @@ interface RouletteProps {
 export const Roulette = ({
   prizes,
   day,
-  hasAttempt,
+  hasAttempt = true,
   lastAttempt,
   onWin,
 }: RouletteProps) => {
+  const [activePrize, setActivePrize] = useState<Prize>(prizes[0]);
+  const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
+  const [lastTime, setLastTime] = useState<Date>(
+    lastAttempt || subDays(new Date(), 1),
+  );
+
+  const openPopup = () => {
+    setIsOpenPopup(true);
+  };
+
+  const closePopup = () => {
+    setIsOpenPopup(false);
+  };
+
+  const handleWin = () => {
+    onWin?.(activePrize);
+    openPopup();
+    setLastTime(new Date());
+  };
+
+  const isAvailable = hasAttempt && isAttemptAvailable(lastTime);
+
   return (
     <div className="overflow-hidden md:max-w-87 lg:max-w-113 max-w-full xl:max-w-xl p-6 rounded-lg border-gray-stroke border flex flex-col gap-4">
       <div className="flex w-full items-center justify-between lg:gap-4">
@@ -37,11 +63,15 @@ export const Roulette = ({
         <RouletteIcon className="w-18 h-18" />
       </div>
 
-      <ul className="flex gap-1">
-        {prizes.map((prize, index) => (
-          <RouletteCard key={index} prize={prize} />
-        ))}
-      </ul>
+      {isAvailable ? (
+        <ul className="flex gap-1">
+          {prizes.map((prize, index) => (
+            <RouletteCard key={index} prize={prize} />
+          ))}
+        </ul>
+      ) : (
+        <Timer lastAttempt={lastTime} />
+      )}
 
       <Button endAdorement={<GiftIcon />}>Испытать удачу</Button>
       <div className="flex flex-col gap-2.5">
@@ -51,6 +81,12 @@ export const Roulette = ({
         </div>
         <RouletteProgress currentDay={day} />
       </div>
+
+      <PrizePopup
+        prize={activePrize}
+        isOpen={isOpenPopup}
+        onClose={closePopup}
+      />
     </div>
   );
 };
