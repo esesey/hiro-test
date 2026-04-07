@@ -75,8 +75,10 @@ export const useRoulette = (
 
   const handleStop = (centerPrizeIndex: number) => {
     const prize = prizes[centerPrizeIndex];
-    setIsSpinning(false);
-    handleWin(prize);
+    setTimeout(() => {
+      setIsSpinning(false);
+      handleWin(prize);
+    }, 2000);
   };
 
   const { offset, startAutoSpin, spinAndStop } = useInfiniteRoulette({
