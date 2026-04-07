@@ -4,11 +4,12 @@ import RouletteIcon from "../assets/logos/roullete.svg?react";
 import GiftIcon from "../assets/icons/gift.svg?react";
 import { RouletteProgress } from "./roulette-progress";
 import { RouletteCard } from "./roulette-card";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PrizePopup } from "./prize-popup";
 import { subDays } from "date-fns";
 import { isAttemptAvailable } from "../shared/utils/time-utils";
 import { Timer } from "./timer";
+import { useInfiniteRoulette } from "../shared/hooks/useInfiniteRoulette";
 
 interface RouletteProps {
   prizes: Prize[];
@@ -28,8 +29,14 @@ export const Roulette = ({
   const [activePrize, setActivePrize] = useState<Prize>(prizes[0]);
   const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
   const [lastTime, setLastTime] = useState<Date>(
-    lastAttempt || subDays(new Date(), 1),
+    lastAttempt || subDays(new Date(), 2),
   );
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [itemWidth, setItemWidth] = useState(0);
+  const [isSpinning, setIsSpinning] = useState(false);
+
+  const isAvailable = hasAttempt && isAttemptAvailable(lastTime);
 
   const openPopup = () => {
     setIsOpenPopup(true);
@@ -39,13 +46,48 @@ export const Roulette = ({
     setIsOpenPopup(false);
   };
 
-  const handleWin = () => {
-    onWin?.(activePrize);
+  const handleWin = (prize: Prize) => {
+    setActivePrize(prize);
+    onWin?.(prize);
     openPopup();
     setLastTime(new Date());
   };
 
-  const isAvailable = hasAttempt && isAttemptAvailable(lastTime);
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const firstCard = containerRef.current.querySelector(".roulette-card");
+    if (firstCard) {
+      const width = firstCard.getBoundingClientRect().width;
+      const gap = 4;
+      setItemWidth(width + gap);
+    }
+  }, [prizes]);
+
+  const handleStop = (centerPrizeIndex: number) => {
+    const prize = prizes[centerPrizeIndex];
+    setIsSpinning(false);
+    handleWin(prize);
+  };
+
+  const { offset, startAutoSpin, spinAndStop } = useInfiniteRoulette({
+    itemWidth,
+    totalItems: prizes.length,
+    onStop: handleStop,
+  });
+
+  useEffect(() => {
+    if (isAvailable && itemWidth > 0) {
+      startAutoSpin();
+    }
+  }, [isAvailable, itemWidth, startAutoSpin]);
+
+  const handleSpinClick = () => {
+    if (!isAvailable || isSpinning) return;
+    setIsSpinning(true);
+    spinAndStop();
+  };
+
+  const tripledPrizes = [...prizes, ...prizes, ...prizes];
 
   return (
     <div className="overflow-hidden md:max-w-87 lg:max-w-113 max-w-full xl:max-w-xl p-6 rounded-lg border-gray-stroke border flex flex-col gap-4">
@@ -64,16 +106,28 @@ export const Roulette = ({
       </div>
 
       {isAvailable ? (
-        <ul className="flex gap-1">
-          {prizes.map((prize, index) => (
-            <RouletteCard key={index} prize={prize} />
+        <div
+          ref={containerRef}
+          className="flex gap-1 will-change-transform"
+          style={{ transform: `translateX(${offset}px)` }}
+        >
+          {tripledPrizes.map((prize, index) => (
+            <div key={index} className="roulette-card shrink-0">
+              <RouletteCard prize={prize} />
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
         <Timer lastAttempt={lastTime} />
       )}
 
-      <Button endAdorement={<GiftIcon />}>Испытать удачу</Button>
+      <Button
+        onClick={handleSpinClick}
+        endAdorement={<GiftIcon />}
+        disabled={isSpinning}
+      >
+        Испытать удачу
+      </Button>
       <div className="flex flex-col gap-2.5">
         <div className="text-[1.25rem] leading-5 tracking-[0.01em]">
           Крути колесо 7&nbsp;дней подряд без пропусков и&nbsp;получи
