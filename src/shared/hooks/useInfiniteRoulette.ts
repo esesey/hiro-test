@@ -12,26 +12,40 @@ export const useInfiniteRoulette = ({
   onStop,
 }: UseInfiniteRouletteOptions) => {
   const [offset, setOffset] = useState(0);
+  const offsetRef = useRef(0);
   const velocityRef = useRef(0);
-  const animRef = useRef<number>(0);
+  const animRef = useRef<number | null>(null);
   const lastTimestampRef = useRef<number>(0);
   const phaseRef = useRef<"idle" | "accelerate" | "const" | "decelerate">(
     "idle",
   );
   const phaseStartTimeRef = useRef<number>(0);
   const initialSpeedRef = useRef(0);
-  const maxSpeed = 200;
-  const baseSpeed = 80;
 
+  const maxSpeed = 600;
+  const baseSpeed = 80;
   const fullSetWidth = totalItems * itemWidth;
 
+  useEffect(() => {
+    offsetRef.current = offset;
+  }, [offset]);
+
   const wrapOffset = useCallback(
-    (newOffset: number) => {
-      if (newOffset > 0) return newOffset - fullSetWidth;
-      if (newOffset < -fullSetWidth * 2) return newOffset + fullSetWidth;
-      return newOffset;
+    (value: number) => {
+      if (value > 0) return value - fullSetWidth;
+      if (value < -fullSetWidth * 2) return value + fullSetWidth;
+      return value;
     },
     [fullSetWidth],
+  );
+
+  const getCenterIndex = useCallback(
+    (currentOffset: number) => {
+      let idx = Math.round(-currentOffset / itemWidth);
+      idx = ((idx % totalItems) + totalItems) % totalItems;
+      return idx;
+    },
+    [itemWidth, totalItems],
   );
 
   const animate = useCallback(
@@ -41,6 +55,7 @@ export const useInfiniteRoulette = ({
         animRef.current = requestAnimationFrame(animate);
         return;
       }
+
       const delta = Math.min(0.033, (now - lastTimestampRef.current) / 1000);
       if (delta <= 0) {
         lastTimestampRef.current = now;
@@ -74,7 +89,7 @@ export const useInfiniteRoulette = ({
             newVelocity = 0;
             phaseRef.current = "idle";
             cancelAnimationFrame(animRef.current!);
-            const finalOffset = offset + velocityRef.current * delta;
+            const finalOffset = offsetRef.current + velocityRef.current * delta;
             const centerIndex = getCenterIndex(finalOffset);
             onStop(centerIndex);
             return;
@@ -83,22 +98,15 @@ export const useInfiniteRoulette = ({
         velocityRef.current = newVelocity;
       }
 
-      let newOffset = offset + velocityRef.current * delta;
+      const currentOffset = offsetRef.current;
+      let newOffset = currentOffset + velocityRef.current * delta;
       newOffset = wrapOffset(newOffset);
       setOffset(newOffset);
+
       lastTimestampRef.current = now;
       animRef.current = requestAnimationFrame(animate);
     },
-    [offset, wrapOffset, maxSpeed, onStop],
-  );
-
-  const getCenterIndex = useCallback(
-    (currentOffset: number) => {
-      let idx = Math.round(-currentOffset / itemWidth);
-      idx = ((idx % totalItems) + totalItems) % totalItems;
-      return idx;
-    },
-    [itemWidth, totalItems],
+    [wrapOffset, maxSpeed, onStop, getCenterIndex],
   );
 
   const startAutoSpin = useCallback(() => {
@@ -106,9 +114,9 @@ export const useInfiniteRoulette = ({
     velocityRef.current = baseSpeed;
     phaseRef.current = "idle";
     lastTimestampRef.current = 0;
-    setOffset(wrapOffset(offset));
+    setOffset((prev) => wrapOffset(prev));
     animRef.current = requestAnimationFrame(animate);
-  }, [animate, offset, wrapOffset]);
+  }, [animate, wrapOffset]);
 
   const spinAndStop = useCallback(() => {
     if (phaseRef.current !== "idle") return;
