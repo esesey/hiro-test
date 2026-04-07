@@ -20,7 +20,7 @@ export const useInfiniteRoulette = ({
   );
   const phaseStartTimeRef = useRef<number>(0);
   const initialSpeedRef = useRef(0);
-  const maxSpeed = 400;
+  const maxSpeed = 200;
   const baseSpeed = 80;
 
   const fullSetWidth = totalItems * itemWidth;
