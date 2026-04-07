@@ -25,6 +25,11 @@ export const QuestCard = ({ quest, special = false }: QuestCardProps) => {
             Доступен
           </div>
         )}
+        {availability === "done" && (
+          <div className="bg-contrast text-fill py-0.5 px-2 w-fit text-[1.25rem] leading-5 tracking-[0.01em]">
+            Выполнен
+          </div>
+        )}
         <div className="flex flex-col gap-2">
           <div className="uppercase text-[2rem] leading-8 tracking-[0.01em] font-semibold">
             {title}

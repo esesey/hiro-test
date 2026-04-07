@@ -18,7 +18,7 @@ export const QUESTS_MOCKUP: Quest[] = [
     title: "Поделиться с Друзьями",
     description: "Пригласите друга в HiroVPN и получите 1 день VPN бесплатно!",
     action: "поделиться",
-    availability: "available",
+    availability: "done",
     icon: <ShareIcon className="text-accent" />,
   },
   {
