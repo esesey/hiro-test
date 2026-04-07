@@ -13,7 +13,7 @@ export const QuestCard = ({ quest, special = false }: QuestCardProps) => {
   return (
     <div
       className={cn(
-        "flex flex-col justify-between gap-4 pb-6 px-6 ",
+        "flex flex-col  justify-between gap-4 pb-6 px-6 ",
         special
           ? "bg-contrast text-fill"
           : "border border-gray-stroke rounded-lg w-full h-full",
@@ -31,7 +31,7 @@ export const QuestCard = ({ quest, special = false }: QuestCardProps) => {
           </div>
           <div
             className={cn(
-              "text-[1.25rem] leading-5 tracking-[0.01em]",
+              "text-[1.25rem] leading-5 tracking-[0.01em] whitespace-pre-line",
               special ? "text-fill" : "text-gray",
             )}
           >

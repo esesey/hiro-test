@@ -8,7 +8,7 @@ interface QuestsGridProps {
 
 export const QuestsGrid = ({ quests }: QuestsGridProps) => {
   return (
-    <div className="grid grid-cols-3 gap-6 mb-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
       {quests.map((quest) => (
         <div
           key={quest.id}

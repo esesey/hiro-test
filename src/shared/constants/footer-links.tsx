@@ -41,32 +41,32 @@ const DOWNLOAD = [
   {
     title: "IOS",
     href: "#",
-    icon: <IOSIcon />,
+    icon: <IOSIcon className="min-w-6 min-h-6" />,
   },
   {
     title: "Android",
     href: "#",
-    icon: <AndroidIcon />,
+    icon: <AndroidIcon className="min-w-6 min-h-6" />,
   },
   {
     title: "Android TV",
     href: "#",
-    icon: <AndroidTVIcon />,
+    icon: <AndroidTVIcon className="min-w-6 min-h-6" />,
   },
   {
     title: "Windows",
     href: "#",
-    icon: <WindowsIcon />,
+    icon: <WindowsIcon className="min-w-6 min-h-6" />,
   },
   {
     title: "Mac OS",
     href: "#",
-    icon: <MacOSIcon />,
+    icon: <MacOSIcon className="min-w-6 min-h-6" />,
   },
   {
     title: "Linux",
     href: "#",
-    icon: <LinuxIcon />,
+    icon: <LinuxIcon className="min-w-6 min-h-6" />,
   },
 ];
 
@@ -74,27 +74,27 @@ const PAYMENT = [
   {
     title: "СБП",
     href: "#",
-    icon: <SbpIcon />,
+    icon: <SbpIcon className="min-w-6 min-h-6" />,
   },
   {
     title: "Sberpay",
     href: "#",
-    icon: <SberpayIcon />,
+    icon: <SberpayIcon className="min-w-6 min-h-6" />,
   },
   {
     title: "Tinkoff Pay",
     href: "#",
-    icon: <TpayIcon />,
+    icon: <TpayIcon className="min-w-6 min-h-6" />,
   },
   {
     title: "Банковская карта",
     href: "#",
-    icon: <CardIcon />,
+    icon: <CardIcon className="min-w-6 min-h-6" />,
   },
   {
     title: "Криптовалюта",
     href: "#",
-    icon: <CriptoIcon />,
+    icon: <CriptoIcon className="min-w-6 min-h-6" />,
   },
 ];
 

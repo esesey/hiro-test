@@ -40,6 +40,12 @@
   --shadow-button-hover:
     0 8px 8px 0 rgb(0 0 0 / 0.3), 0 16px 24px 12px rgb(0 0 0 / 0.15);
   --shadow-hover: 0 8px 12px 6px rgb(0 0 0 / 0.15);
+
+  --breakpoint-xs: 23.4375rem; /* 375px */
+  --breakpoint-sm: 30rem; /* 480px */
+  --breakpoint-md: 48rem; /* 768px */
+  --breakpoint-lg: 64rem; /* 1024px */
+  --breakpoint-xl: 80rem; /* 1280px */
 }
 
 #root {
@@ -50,30 +56,33 @@ body {
   margin: 0;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
 .fix-container {
   max-width: 73.5rem;
   width: 100%;
   margin: 0 auto;
+}
+
+@media (max-width: 80rem) {
+  .fix-container {
+    max-width: 58rem;
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 64rem) {
+  .fix-container {
+    max-width: 45rem;
+  }
+}
+
+@media (max-width: 48rem) {
+  .fix-container {
+    max-width: 28rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  .fix-container {
+    max-width: 21.4375rem;
+  }
 }

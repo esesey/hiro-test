@@ -14,11 +14,11 @@ export const QuestsSection = () => {
     <section>
       <div className="flex w-full justify-between items-center mb-8">
         <div className="font-kelly-slab text-[2.75rem] leading-11">Квесты</div>
-        <IconButton>
+        <IconButton className="mr-2.5">
           <CrossIcon />
         </IconButton>
       </div>
-      <div className="flex gap-6 items-center mb-8">
+      <div className="flex flex-col md:flex-row gap-6 items-center mb-8">
         <Roulette day={6} prizes={generatePrizeList()} />
         <QuestCard special quest={SPECIAL_QUEST_MOCKUP} />
       </div>

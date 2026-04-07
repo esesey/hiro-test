@@ -22,8 +22,8 @@ export const Roulette = ({
   onWin,
 }: RouletteProps) => {
   return (
-    <div className="overflow-hidden p-6 rounded-lg border-gray-stroke border flex flex-col gap-4">
-      <div className="flex w-full items-center justify-between gap-4">
+    <div className="overflow-hidden md:max-w-87 lg:max-w-113 max-w-full xl:max-w-xl p-6 rounded-lg border-gray-stroke border flex flex-col gap-4">
+      <div className="flex w-full items-center justify-between lg:gap-4">
         <div className="flex flex-col">
           <div className="uppercase font-semibold text-[2rem] leading-8 tracking-[0.01em]">
             Колесо фортуны
@@ -34,7 +34,7 @@ export const Roulette = ({
             и&nbsp;выигрывайте бонусы для VPN!
           </div>
         </div>
-        <RouletteIcon />
+        <RouletteIcon className="w-18 h-18" />
       </div>
 
       <ul className="flex gap-1">
@@ -45,7 +45,7 @@ export const Roulette = ({
 
       <Button endAdorement={<GiftIcon />}>Испытать удачу</Button>
       <div className="flex flex-col gap-2.5">
-        <div>
+        <div className="text-[1.25rem] leading-5 tracking-[0.01em]">
           Крути колесо 7&nbsp;дней подряд без пропусков и&nbsp;получи
           на&nbsp;7-й день гарантированный 1&nbsp;день подписки!
         </div>
