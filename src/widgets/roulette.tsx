@@ -76,7 +76,7 @@ export const Roulette = ({
   });
 
   useEffect(() => {
-    if (isAvailable && itemWidth > 0) {
+    if (isAvailable && itemWidth > 0 && !isSpinning) {
       startAutoSpin();
     }
   }, [isAvailable, itemWidth, startAutoSpin]);
@@ -108,8 +108,11 @@ export const Roulette = ({
       {isAvailable ? (
         <div
           ref={containerRef}
-          className="flex gap-1 will-change-transform"
-          style={{ transform: `translateX(${offset}px)` }}
+          className="flex gap-1"
+          style={{
+            willChange: "transform",
+            transform: `translateX(${offset}px)`,
+          }}
         >
           {tripledPrizes.map((prize, index) => (
             <div key={index} className="roulette-card shrink-0">
