@@ -3,12 +3,14 @@ import { useRef, useState, useEffect, useCallback } from "react";
 interface UseInfiniteRouletteOptions {
   itemWidth: number;
   totalItems: number;
+  containerWidth: number;
   onStop: (centerIndex: number) => void;
 }
 
 export const useInfiniteRoulette = ({
   itemWidth,
   totalItems,
+  containerWidth,
   onStop,
 }: UseInfiniteRouletteOptions) => {
   const [offset, setOffset] = useState(0);
@@ -22,7 +24,7 @@ export const useInfiniteRoulette = ({
   const phaseStartTimeRef = useRef<number>(0);
   const initialSpeedRef = useRef(0);
 
-  const maxSpeed = 600;
+  const maxSpeed = 1200;
   const baseSpeed = 80;
   const fullSetWidth = totalItems * itemWidth;
 
@@ -41,7 +43,8 @@ export const useInfiniteRoulette = ({
 
   const getCenterIndex = useCallback(
     (currentOffset: number) => {
-      let idx = Math.round(-currentOffset / itemWidth);
+      const centerPosition = -currentOffset + containerWidth / 2;
+      let idx = Math.round(centerPosition / itemWidth);
       idx = ((idx % totalItems) + totalItems) % totalItems;
       return idx;
     },

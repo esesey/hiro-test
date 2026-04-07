@@ -34,6 +34,7 @@ export const Roulette = ({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [itemWidth, setItemWidth] = useState(0);
+  const [containerWidth, setContainerWidth] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
 
   const isAvailable = hasAttempt && isAttemptAvailable(lastTime);
@@ -55,6 +56,26 @@ export const Roulette = ({
 
   useEffect(() => {
     if (!containerRef.current) return;
+
+    const updateWidth = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.getBoundingClientRect().width;
+        setContainerWidth(width);
+      }
+    };
+
+    updateWidth();
+
+    const resizeObserver = new ResizeObserver(updateWidth);
+    resizeObserver.observe(containerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
     const firstCard = containerRef.current.querySelector(".roulette-card");
     if (firstCard) {
       const width = firstCard.getBoundingClientRect().width;
@@ -72,6 +93,7 @@ export const Roulette = ({
   const { offset, startAutoSpin, spinAndStop } = useInfiniteRoulette({
     itemWidth,
     totalItems: prizes.length,
+    containerWidth,
     onStop: handleStop,
   });
 
