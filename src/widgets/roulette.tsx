@@ -4,13 +4,10 @@ import RouletteIcon from "../assets/logos/roullete.svg?react";
 import GiftIcon from "../assets/icons/gift.svg?react";
 import { RouletteProgress } from "./roulette-progress";
 import { RouletteCard } from "./roulette-card";
-import { useEffect, useRef, useState } from "react";
 import { PrizePopup } from "./prize-popup";
-import { subDays } from "date-fns";
-import { isAttemptAvailable } from "../shared/utils/time-utils";
 import { Timer } from "./timer";
-import { useInfiniteRoulette } from "../shared/hooks/useInfiniteRoulette";
 import FrameIcon from "../assets/frame.svg?react";
+import { useRoulette } from "../shared/hooks/useRoulette";
 
 interface RouletteProps {
   prizes: Prize[];
@@ -27,90 +24,18 @@ export const Roulette = ({
   lastAttempt,
   onWin,
 }: RouletteProps) => {
-  const [activePrize, setActivePrize] = useState<Prize>(prizes[0]);
-  const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
-  const [lastTime, setLastTime] = useState<Date>(
-    lastAttempt || subDays(new Date(), 2),
-  );
-
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [itemWidth, setItemWidth] = useState(0);
-  const [containerWidth, setContainerWidth] = useState(0);
-  const [isSpinning, setIsSpinning] = useState(false);
-
-  const isAvailable = hasAttempt && isAttemptAvailable(lastTime);
-
-  const openPopup = () => {
-    setIsOpenPopup(true);
-  };
-
-  const closePopup = () => {
-    setIsOpenPopup(false);
-  };
-
-  const handleWin = (prize: Prize) => {
-    setActivePrize(prize);
-    onWin?.(prize);
-    openPopup();
-    setLastTime(new Date());
-  };
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const updateWidth = () => {
-      if (containerRef.current) {
-        const width = containerRef.current.getBoundingClientRect().width;
-        setContainerWidth(width);
-      }
-    };
-
-    updateWidth();
-
-    const resizeObserver = new ResizeObserver(updateWidth);
-    resizeObserver.observe(containerRef.current);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const firstCard = containerRef.current.querySelector(".roulette-card");
-    if (firstCard) {
-      const width = firstCard.getBoundingClientRect().width;
-      const gap = 4;
-      setItemWidth(width + gap);
-    }
-  }, [prizes]);
-
-  const handleStop = (centerPrizeIndex: number) => {
-    const prize = prizes[centerPrizeIndex];
-    setIsSpinning(false);
-    handleWin(prize);
-  };
-
-  const { offset, startAutoSpin, spinAndStop } = useInfiniteRoulette({
-    itemWidth,
-    totalItems: prizes.length,
-    containerWidth,
-    onStop: handleStop,
-  });
-
-  useEffect(() => {
-    if (isAvailable && itemWidth > 0 && !isSpinning) {
-      startAutoSpin();
-    }
-  }, [isAvailable, itemWidth, startAutoSpin]);
-
-  const handleSpinClick = () => {
-    if (!isAvailable || isSpinning) return;
-    setIsSpinning(true);
-    spinAndStop();
-  };
-
-  const tripledPrizes = [...prizes, ...prizes, ...prizes];
+  const {
+    activePrize,
+    containerRef,
+    isOpenPopup,
+    isAvailable,
+    isSpinning,
+    offset,
+    closePopup,
+    handleSpinClick,
+    lastTime,
+    prizeList,
+  } = useRoulette(prizes, hasAttempt, lastAttempt, onWin);
 
   return (
     <div className="overflow-hidden md:max-w-87 lg:max-w-113 max-w-full xl:max-w-xl p-6 rounded-lg border-gray-stroke border flex flex-col gap-4">
@@ -138,7 +63,7 @@ export const Roulette = ({
               transform: `translateX(${offset}px)`,
             }}
           >
-            {tripledPrizes.map((prize, index) => (
+            {prizeList.map((prize, index) => (
               <div key={index} className="roulette-card shrink-0">
                 <RouletteCard prize={prize} />
               </div>
